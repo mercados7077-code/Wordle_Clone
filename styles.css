@@ -1,195 +1,207 @@
+/* RESET */
 * {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  user-select: none;
+  margin: 0;
+  padding: 0;
 }
 
-html,
-body {
-    height: 100%;
-    overflow-x: hidden;
-    background-color: black;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  background-color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+               'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
+/* MAIN CONTAINER */
 #container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    justify-content: flex-start;
-    padding: 20px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 
+/* GAME BOARD */
 #game {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* HEADER + TITLE */
+/* TITLE */
 header {
-    width: 100%;
-    border-bottom: 1px solid rgb(58,58,60);
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+  width: 100%;
+  border-bottom: 1px solid rgb(58,58,60);
+  padding-bottom: 0;
+  margin-bottom: 10px;
 }
-
 .title {
-    color: gainsboro;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
+  color: gainsboro;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-/* BOARD */
+/* BOARD CONTAINER */
 #board-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 #board {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 6px;
-    padding: 5px;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 6px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
+/* SQUARES */
 .square {
-    border: 2px solid rgb(58, 58, 60);
-    width: 50px;
-    height: 50px;
-    font-size: 28px;
-    font-weight: bold;
-    color: gainsboro;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border: 2.5px solid rgb(58, 58, 60);
+  min-width: 60px;
+  min-height: 60px;
+  font-size: 40px;
+  font-weight: bold;
+  color: gainsboro;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
+
+/* ACTIVE TILE */
+.square.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+
+/* LETTER GLOW FOR FILLED TILES */
+.square:not(:empty):not(.glow-green):not(.glow-yellow):not(.glow-gray) {
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.03);
+}
+
+/* GLOW EFFECTS */
+.square.glow-green { box-shadow: 0 0 12px rgba(83, 141, 78, 0.7); }
+.square.glow-yellow { box-shadow: 0 0 12px rgba(181, 159, 59, 0.7); }
+.square.glow-gray { box-shadow: 0 0 12px rgba(58, 58, 60, 0.7); }
+
+/* POP-IN NEW LETTERS */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.square.pop-in { animation: popIn 0.3s ease forwards; }
+
+/* SHAKE ANIMATION */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-5px); }
+  20% { transform: translateX(5px); }
+  30% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  70% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  90% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.shake { animation: shake 0.25s ease-in-out; }
 
 /* KEYBOARD */
 #keyboard-container {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 5px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 5px;
 }
 
 .keyboard-row {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 6px;
-    gap: 5px;
-    touch-action: manipulation;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 7px;
+  gap: 6px; /* Retain consistent gap */
 }
 
 .keyboard-row button {
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 1.1rem;
-    width: 40px;
-    height: 50px;
-    background-color: rgb(129, 131, 132);
-    color: rgb(215, 218, 220);
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    user-select: none;
-    flex: none;
-}
-
-.keyboard-row button.wide-button {
-    width: 60px;
-}
-
-/* Delete + Enter */
-button[data-key="del"] {
-    line-height: 0;
-    font-size: 1.3rem;
-}
-
-button[data-key="enter"] {
-    font-size: 0.85rem;
-}
-
-/* REMOVE FOCUS RING COMPLETELY */
-.keyboard-row button:focus,
-.keyboard-row button:focus-visible,
-.keyboard-row button:focus-within,
-button:focus,
-button:focus-visible {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-button::-moz-focus-inner {
-    border: 0 !important;
+  /* Set a fixed, uniform width for letter keys across all rows */
+  width: 43px; 
+  flex: 0 0 auto; /* Ensure keys do not grow or shrink, maintaining fixed width */
+  height: 63px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: rgb(129, 131, 132);
+  color: rgb(215, 218, 220);
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  user-select: none;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 .keyboard-row button:active,
 .keyboard-row button.pressed {
-    transform: scale(0.95);
-    background-color: rgb(163, 159, 159);
+  transform: scale(0.95);
+  background-color: rgb(163, 159, 159);
 }
+
+.keyboard-row button.wide-button { 
+  /* These keys need to override the fixed width to be wider */
+  width: auto;
+  flex: 1.2; /* Makes them 1.5 times the size of a regular key's share of space */
+}
+
+button[data-key="del"] { font-size: 1.5em; display: flex; justify-content: center; align-items: center}
+button[data-key="enter"] { font-size: 0.9em; }
 
 /* NOTIFICATIONS */
 #notification-container {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 200px;
+  position: absolute;
+  margin-top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
 }
-
 .notification {
-    background-color: rgb(100, 100, 100);
-    color: gainsboro;
-    font-weight: bold;
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    border-radius: 8px;
-    opacity: 0;
-    animation: slideInOut 2.5s forwards;
-    text-align: center;
+  background-color: rgb(100, 100, 100);
+  color: gainsboro;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  text-align: center;
 }
-
 @keyframes slideInOut {
-    0% { opacity: 0; transform: translateY(-20px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-20px); }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-
-.shake {
-    animation: shake 0.25s ease-in-out;
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
 }
