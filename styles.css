@@ -277,10 +277,3 @@ button:focus {
   outline: none !important;
   box-shadow: none !important;
 }
-
-@media (max-width: 600px) {
-  button[data-key="enter"],
-  button[data-key="del"] {
-    font-size: 5em;            /* balanced size for mobile */
-  }
-}
